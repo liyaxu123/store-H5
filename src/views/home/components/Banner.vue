@@ -1,7 +1,7 @@
 <template>
   <Swipe class="my-swipe" :autoplay="2000" indicator-color="white" lazy-render>
     <SwipeItem v-for="item in images" :key="item.carousel_id">
-      <img :src="`http://localhost:3000/${item.imgPath}`" alt="" />
+      <img :src="`${$proxyUrl}/${item.imgPath}`" alt="" />
     </SwipeItem>
   </Swipe>
 </template>

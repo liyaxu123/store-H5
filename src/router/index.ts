@@ -8,6 +8,11 @@ import Layout from '@/layout/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+  },
+  {
     path: '/',
     name: 'root',
     component: Layout,
@@ -27,6 +32,16 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/discover/index.vue'),
         meta: {
           title: '发现',
+        },
+      },
+      {
+        path: 'detail',
+        name: 'Detail',
+        component: () => import('@/views/detail/index.vue'),
+        meta: {
+          title: '商品详情',
+          goBack: true,
+          hideTabBar: true,
         },
       },
       {
