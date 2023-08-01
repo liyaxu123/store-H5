@@ -113,12 +113,14 @@ import {
 } from '@/api/detail'
 import { getProductByCategoryApi, Iproduct } from '@/api/home'
 import { useUserStore } from '@/store/modules/user'
+import useAuth from '@/hooks/useAuth'
 
 const route = useRoute()
 const router = useRouter()
+const userStore = useUserStore()
+const { checkLogin } = useAuth()
 const productID = ref<any>(route.query.productID)
 const app = getCurrentInstance()!.appContext.app
-const userStore = useUserStore()
 
 // 轮播图数据
 const bannerList = ref<IProductPicture[]>([])
@@ -152,54 +154,25 @@ onBeforeMount(async () => {
 // 加入购物车
 const addToShoppingCar = () => {
   // 判断是否登录
-  if (!userStore.isLogin) {
-    showConfirmDialog({
-      title: '提示',
-      width: '320px',
-      cancelButtonText: '随便逛逛',
-      confirmButtonText: '去登录',
-      message: '检测到您未登录，请登录后再操作',
-    })
-      .then(() => {
-        router.push(`login?redirect=detail?productID=${productID.value}`)
-      })
-      .catch(() => {
-        // on cancel
-      })
+  const isLogin = checkLogin()
 
-    return
+  if (isLogin) {
+    const user_id = userStore.user?.user_id
+
+    // 加入购物车
+    addShoppingCar(user_id!, productID.value)
   }
-
-  const user_id = userStore.user?.user_id
-
-  // 加入购物车
-  addShoppingCar(user_id!, productID.value)
 }
 
 // 添加到收藏
 const addToCollect = () => {
-  // 判断是否登录
-  if (!userStore.isLogin) {
-    showConfirmDialog({
-      title: '提示',
-      width: '320px',
-      cancelButtonText: '随便逛逛',
-      confirmButtonText: '去登录',
-      message: '检测到您未登录，请登录后再操作',
-    })
-      .then(() => {
-        router.push(`login?redirect=detail?productID=${productID.value}`)
-      })
-      .catch(() => {
-        // on cancel
-      })
+  const isLogin = checkLogin()
 
-    return
+  if (isLogin) {
+    const user_id = userStore.user?.user_id
+
+    addCollect(user_id!, productID.value)
   }
-
-  const user_id = userStore.user?.user_id
-
-  addCollect(user_id!, productID.value)
 }
 
 const addShoppingCar = async (user_id: number, product_id: number) => {
