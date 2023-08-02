@@ -72,7 +72,8 @@ const onSubmit = async (values: Iform) => {
     userStore.user = user
     showNotify({ type: 'success', message: msg })
 
-    router.replace(route.query.redirect as string)
+    const redirect = route.query.redirect as string
+    router.replace(redirect || 'home')
   } catch (err) {
     console.error(err)
     const { msg } = err as any

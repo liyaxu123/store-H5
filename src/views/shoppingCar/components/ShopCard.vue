@@ -60,7 +60,7 @@ export default {
 </script>
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Checkbox, Image, Icon, Stepper, SwipeCell, Button } from 'vant'
+import { Checkbox, Image, Stepper, SwipeCell, Button } from 'vant'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

@@ -43,14 +43,18 @@ import {
   delShopApi,
 } from '@/api/shoppingCar'
 import { useUserStore } from '@/store/modules/user'
+import { useOrderStore } from '@/store/modules/order'
 import useAuth from '@/hooks/useAuth'
 import ShopCard from './components/ShopCard.vue'
 import SubmitBar from './components/SubmitBar.vue'
 import { Empty, showToast } from 'vant'
 import CartEmpty from '@/assets/imgs/cart-empty.png'
 import { debounce } from 'lodash'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const userStore = useUserStore()
+const orderStore = useOrderStore()
 const { checkLogin } = useAuth()
 const shoppingCarList = ref<IshoppingCartData[]>([])
 const checkAll = ref<boolean>(false)
@@ -83,7 +87,8 @@ const handleNumChange = (index: number, val: number) => {
 
 // 处理结算
 const handleSubmit = () => {
-  console.log('submit')
+  orderStore.orderList = shoppingCarList.value.filter((item) => item.check)
+  router.push('confirmOrder')
 }
 
 // 处理删除

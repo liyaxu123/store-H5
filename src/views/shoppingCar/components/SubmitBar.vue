@@ -18,6 +18,7 @@
       </div>
       <Button
         round
+        :disabled="total == '0.00'"
         color="#ff6700"
         style="width: 100px; height: 40px"
         @click="handleSubmit"

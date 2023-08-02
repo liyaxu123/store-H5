@@ -53,11 +53,39 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: 'confirmOrder',
+        name: 'ConfirmOrder',
+        component: () => import('@/views/confirmOrder/index.vue'),
+        meta: {
+          title: '订单结算',
+          goBack: true,
+          hideTabBar: true,
+        },
+      },
+      {
+        path: 'order',
+        name: 'Order',
+        component: () => import('@/views/order/index.vue'),
+        meta: {
+          title: '我的订单',
+          goBack: true,
+        },
+      },
+      {
         path: 'my',
         name: 'My',
         component: () => import('@/views/my/index.vue'),
         meta: {
           title: '我的',
+        },
+      },
+      {
+        path: 'collect',
+        name: 'Collect',
+        component: () => import('@/views/collect/index.vue'),
+        meta: {
+          title: '我的收藏',
+          goBack: true,
         },
       },
     ],
